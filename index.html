@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Lindy In Between</title>
+
+  <!-- Leaflet map library -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  />
 
   <style>
     :root {
@@ -36,7 +43,7 @@
     }
 
     main {
-      max-width: 1200px;
+      max-width: 1400px;
       margin: 0 auto;
       padding: 10vh 6vw 12vh;
     }
@@ -70,18 +77,30 @@
       line-height: 1.6;
     }
 
-    .map-placeholder {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 420px;
+    #map {
+      width: 100%;
+      height: 560px;
       margin-top: 10vh;
       border: 1px solid var(--line);
-      background: #ebe4d8;
+    }
+
+    .leaflet-popup-content-wrapper,
+    .leaflet-popup-tip {
+      background: var(--paper);
+    }
+
+    .popup-title {
+      margin: 0 0 5px;
+      font-size: 1.3rem;
+      font-weight: normal;
+    }
+
+    .popup-country {
+      margin: 0;
       color: var(--muted);
       font-family: Arial, sans-serif;
-      font-size: 0.75rem;
-      letter-spacing: 0.15em;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
     }
 
@@ -93,6 +112,20 @@
       font-size: 0.7rem;
       letter-spacing: 0.08em;
     }
+
+    @media (max-width: 600px) {
+      header {
+        padding: 24px 5vw;
+      }
+
+      main {
+        padding: 8vh 5vw 10vh;
+      }
+
+      #map {
+        height: 420px;
+      }
+    }
   </style>
 </head>
 
@@ -103,6 +136,7 @@
   </header>
 
   <main>
+
     <section class="intro">
       <div class="eyebrow">A personal atlas</div>
 
@@ -114,14 +148,62 @@
       </p>
     </section>
 
-    <section class="map-placeholder">
-      The map will live here
-    </section>
+    <div id="map"></div>
+
   </main>
 
   <footer>
     Lindy In Between
   </footer>
 
+  <!-- Leaflet map library -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <script>
+    // Create the map.
+    const map = L.map('map').setView([52.5, -2.5], 6);
+
+    // Add the OpenStreetMap background.
+    L.tileLayer(
+      'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      {
+        attribution: '&copy; OpenStreetMap contributors'
+      }
+    ).addTo(map);
+
+    // Our first three Lindy In Between destinations.
+    const places = [
+      {
+        name: 'Merthyr Tydfil',
+        country: 'Wales, UK',
+        coordinates: [51.7460, -3.3777]
+      },
+      {
+        name: 'Southampton',
+        country: 'England, UK',
+        coordinates: [50.9097, -1.4044]
+      },
+      {
+        name: 'Preston',
+        country: 'England, UK',
+        coordinates: [53.7632, -2.7031]
+      }
+    ];
+
+    // Add one pin for each destination.
+    places.forEach(place => {
+
+      const popup = `
+        <h3 class="popup-title">${place.name}</h3>
+        <p class="popup-country">${place.country}</p>
+      `;
+
+      L.marker(place.coordinates)
+        .addTo(map)
+        .bindPopup(popup);
+    });
+  </script>
+
 </body>
 </html>
+```
