@@ -7,7 +7,6 @@
 
   <title>Lindy In Between</title>
 
-  <!-- Leaflet map library -->
   <link
     rel="stylesheet"
     href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -96,12 +95,19 @@
     }
 
     .popup-country {
-      margin: 0;
+      margin: 0 0 10px;
       color: var(--muted);
       font-family: Arial, sans-serif;
       font-size: 0.7rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
+    }
+
+    .popup-link {
+      color: var(--ink);
+      font-family: Arial, sans-serif;
+      font-size: 0.75rem;
+      text-decoration: underline;
     }
 
     footer {
@@ -156,10 +162,10 @@
     Lindy In Between
   </footer>
 
-  <!-- Leaflet map library -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
   <script>
+
     // Create the map.
     const map = L.map('map').setView([52.5, -2.5], 6);
 
@@ -172,46 +178,48 @@
     ).addTo(map);
 
     // Our first three Lindy In Between destinations.
-const places = [
-  {
-    name: 'Merthyr Tydfil',
-    country: 'Wales, UK',
-    coordinates: [51.7460, -3.3777],
-    url: 'destinations/merthyr-tydfil.html'
-  },
+    const places = [
+      {
+        name: 'Merthyr Tydfil',
+        country: 'Wales, UK',
+        coordinates: [51.7460, -3.3777],
+        url: 'destinations/merthyr-tydfil.html'
+      },
       {
         name: 'Southampton',
         country: 'England, UK',
-        coordinates: [50.9097, -1.4044]
+        coordinates: [50.9097, -1.4044],
+        url: '#'
       },
       {
         name: 'Preston',
         country: 'England, UK',
-        coordinates: [53.7632, -2.7031]
+        coordinates: [53.7632, -2.7031],
+        url: '#'
       }
     ];
 
     // Add one pin for each destination.
-  places.forEach(place => {
+    places.forEach(place => {
 
-  const popup = `
-    <h3 class="popup-title">${place.name}</h3>
-    <p class="popup-country">${place.country}</p>
-    <a href="${place.url}">Explore this place →</a>
-  `;
-
-  L.marker(place.coordinates)
-    .addTo(map)
-    .bindPopup(popup);
-});
+      const popup = `
+        <h3 class="popup-title">${place.name}</h3>
+        <p class="popup-country">${place.country}</p>
+        ${
+          place.url !== '#'
+            ? `<a class="popup-link" href="${place.url}">Explore this place →</a>`
+            : ''
+        }
+      `;
 
       L.marker(place.coordinates)
         .addTo(map)
         .bindPopup(popup);
+
     });
+
   </script>
 
 </body>
 </html>
 ```
-
