@@ -191,12 +191,18 @@
     ];
 
     // Add one pin for each destination.
-    places.forEach(place => {
+  places.forEach(place => {
 
-      const popup = `
-        <h3 class="popup-title">${place.name}</h3>
-        <p class="popup-country">${place.country}</p>
-      `;
+  const popup = `
+    <h3 class="popup-title">${place.name}</h3>
+    <p class="popup-country">${place.country}</p>
+    <a href="${place.url}">Explore this place →</a>
+  `;
+
+  L.marker(place.coordinates)
+    .addTo(map)
+    .bindPopup(popup);
+});
 
       L.marker(place.coordinates)
         .addTo(map)
