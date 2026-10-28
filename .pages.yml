@@ -3,4 +3,57 @@ media:
   input: media
   output: /Lindy-In-Between/media
 
-content: []
+content:
+  - name: destinations
+    label: Destinations
+    type: collection
+    path: destination-data
+    format: yaml
+    filename: "{primary}.yml"
+    view:
+      primary: title
+    fields:
+      - name: title
+        label: Town or city
+        type: string
+        required: true
+
+      - name: country
+        label: Country
+        type: string
+        required: true
+
+      - name: region
+        label: Region
+        type: string
+
+      - name: introduction
+        label: Short introduction
+        type: text
+
+      - name: story
+        label: Your story
+        type: rich-text
+
+      - name: cover_image
+        label: Cover photograph
+        type: image
+
+      - name: gallery
+        label: Photo gallery
+        type: list
+        fields:
+          - name: image
+            label: Photograph
+            type: image
+          - name: caption
+            label: Caption
+            type: string
+
+      - name: latitude
+        label: Latitude
+        type: number
+
+      - name: longitude
+        label: Longitude
+        type: number
