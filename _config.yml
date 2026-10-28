@@ -1,3 +1,17 @@
 title: Lindy In Between
 description: A personal atlas of places
 markdown: kramdown
+baseurl: "/Lindy-In-Between"
+url: "https://lindyinbetween.github.io"
+
+collections:
+  destinations:
+    output: true
+    permalink: /destinations/:name/
+
+defaults:
+  - scope:
+      path: ""
+      type: destinations
+    values:
+      layout: destination
